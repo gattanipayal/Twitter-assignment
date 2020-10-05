@@ -1,0 +1,66 @@
+<!<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <button onclick="signin()">
+      Sign In using TWITTER
+    </button>
+    <div id="profile_pic">
+
+    </div>
+    <div id="username">
+
+    </div>
+  </body>
+<script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAC7z5GQb1XGZL0-hcTNw51rrT0MOCJQ4Y",
+    authDomain: "twitterauth-5a3d9.firebaseapp.com",
+    databaseURL: "https://twitterauth-5a3d9.firebaseio.com",
+    projectId: "twitterauth-5a3d9",
+    storageBucket: "twitterauth-5a3d9.appspot.com",
+    messagingSenderId: "609385327441",
+    appId: "1:609385327441:web:5f4c66bd8eb9e4254bc170",
+    measurementId: "G-VXQV97SEC1"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+<script>
+  function signin(){
+    var provider = new firebase.auth.TwitterAuthProvider();
+    firebase.auth().useDeviceLanguage();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
+      // You can use these server side with your app's credentials to access the Twitter API.
+      var token = result.credential.accessToken;
+      var secret = result.credential.secret;
+      // The signed-in user info.
+      var user = result.user;
+      console.log(user);
+      // ...
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+  }
+</script>
+</html>
